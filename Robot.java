@@ -53,29 +53,21 @@ public class Robot {
     public void DriveByInchesTimeSetPower( int inches, double power) {
         double waitTime = 0.00;
         if (inches > 0) {
-            power = power * -1;
+
             waitTime = inches * InchesPerSecond;
-            myself.leftfrontDrive.setPower(power);
-            myself.leftbackDrive.setPower(power);
-            myself.rightfrontDrive.setPower(power);
-            myself.rightbackDrive.setPower(power);
+            Drive(power);
         } else {
+            inches = -inches;
             waitTime = -inches * InchesPerSecond;
-            myself.leftfrontDrive.setPower(power);
-            myself.leftbackDrive.setPower(power);
-            myself.rightfrontDrive.setPower(power);
-            myself.rightbackDrive.setPower(power);
+            Drive(-power);
+
         }
         ElapsedTime timer =  new ElapsedTime();
         timer.reset();
         while (timer.milliseconds() < (waitTime* 100)) {
 
         }
-        myself.leftfrontDrive.setPower(0);
-        myself.leftbackDrive.setPower(0);
-        myself.rightfrontDrive.setPower(0);
-        myself.rightbackDrive.setPower(0);
-
+        StopDrive();
     }
 
 
