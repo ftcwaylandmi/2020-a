@@ -5,10 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class RobotHardware {
-    public DcMotor leftfrontDrive = null;
-    public DcMotor rightfrontDrive = null;
-    public DcMotor leftbackDrive = null;
-    public DcMotor rightbackDrive = null;
+    public DcMotor leftDrive = null;
+    public DcMotor rightDrive = null;
 
     HardwareMap hwMap = null;
 
@@ -19,22 +17,13 @@ public class RobotHardware {
     public void init (HardwareMap ahwMap){
         hwMap = ahwMap;
 
-        leftfrontDrive = hwMap.get(DcMotor.class, "lfd");
-        rightfrontDrive = hwMap.get(DcMotor.class, "rfd");
-        leftbackDrive = hwMap.get(DcMotor.class, "lbd");
-        rightbackDrive = hwMap.get(DcMotor.class, "rbb");
-        leftfrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightfrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftbackDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightfrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftfrontDrive.setPower(0);
-        rightfrontDrive.setPower(0);
-        leftbackDrive.setPower(0);
-        rightfrontDrive.setPower(0);
-        leftfrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightfrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftbackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightbackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        leftDrive = hwMap.get(DcMotor.class, "ld");
+        rightDrive = hwMap.get(DcMotor.class, "rd");
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }

@@ -42,7 +42,8 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 /**
- * This 2020-2021 OpMode illustrates the basics of using the TensorFlow Object Detection API to
+ * This 2020-2021 OpMode illustrates
+ * the basics of using the TensorFlow Object Detection API to
  * determine the position of the Ultimate Goal game elements.
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
@@ -93,6 +94,7 @@ public class LeftRedAutonomous extends LinearOpMode {
         initVuforia();
         initTfod();
         myrobot.initHW(hardwareMap);
+        DriveToOne();
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -164,7 +166,10 @@ public class LeftRedAutonomous extends LinearOpMode {
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
     }
     private void DriveToOne(){
-        myrobot.DriveByInchesTimeSetPower(24, 1);
+        myrobot.DriveByInchesTimeSetPower(140, 1);
+        myrobot.TurnByDegrees(-145);
+        myrobot.DriveByInchesTimeSetPower(68, 1);
+        myrobot.StopDrive();
     }
 
     /**

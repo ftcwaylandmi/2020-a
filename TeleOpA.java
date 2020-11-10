@@ -22,11 +22,9 @@ public class TeleOpA extends OpMode{
         right = -gamepad1.right_stick_y;
 
         if (gamepad1.right_bumper) {
-            myrobot.LeftDrive(left);
-            myrobot.RightDrive(right);
+            myrobot.Drive(1,1);
         }else{
-            myrobot.LeftDrive(left/2);
-            myrobot.RightDrive(right/2);
+            myrobot.Drive(1/2,1/2);
         }
     }
 }
