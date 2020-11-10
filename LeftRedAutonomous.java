@@ -132,6 +132,18 @@ public class LeftRedAutonomous extends LinearOpMode {
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             // FIXME Get label == Then Run Function
+                            switch (recognition.getLabel()) {
+                                case "Single":
+                                    telemetry.addData("Found", "Single going to 2");
+                                    DriveToTwoFromLeftRed();
+                                case "Quad":
+                                    telemetry.addData("Found", "Quad going to 3");
+                                    DriveToThreeFromLeftRed();
+                                default:
+                                    telemetry.addData("Not Found","going to 1");
+                                    DriveToOneFromLeftRed();
+
+                            }
                             telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
@@ -183,4 +195,34 @@ public class LeftRedAutonomous extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
     }
+
+    private void DriveToOneFromLeftRed(){
+        telemetry.addData("Starting","DriveToOneFromLeftRed");
+        telemetry.update();
+        myrobot.DriveByInchesTimeSetPower(140, 1);
+        myrobot.TurnByDegrees(-145);
+        myrobot.DriveByInchesTimeSetPower(68, 1);
+        myrobot.StopDrive();
+        telemetry.addData("Finishing","DriveToOneFromLeftRed");
+        telemetry.update();
+    }
+
+    private void DriveToTwoFromLeftRed(){
+        telemetry.addData("Starting","DriveToTwoFromLeftRed");
+        telemetry.update();
+
+        telemetry.addData("Finishing","DriveToTwoFromLeftRed");
+        telemetry.update();
+
+    }
+
+    private void DriveToThreeFromLeftRed(){
+        telemetry.addData("Starting","DriveToThreeFromLeftRed");
+        telemetry.update();
+
+        telemetry.addData("Finishing","DriveToThreeFromLeftRed");
+        telemetry.update();
+
+    }
+
 }
