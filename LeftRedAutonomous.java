@@ -96,6 +96,10 @@ public class LeftRedAutonomous extends LinearOpMode {
         myrobot.initHW(hardwareMap);
         DriveToOne();
 
+        int rescans = 0;
+        int maxrescans = 3;
+        int rescaninches = 2;
+
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
@@ -135,14 +139,17 @@ public class LeftRedAutonomous extends LinearOpMode {
                             switch (recognition.getLabel()) {
                                 case "Single":
                                     telemetry.addData("Found", "Single going to 2");
-                                    DriveToTwoFromLeftRed();
+                                    DriveToTwoFromLeftRed(rescans * rescaninches);
                                 case "Quad":
                                     telemetry.addData("Found", "Quad going to 3");
-                                    DriveToThreeFromLeftRed();
+                                    DriveToThreeFromLeftRed(rescans * rescaninches);
                                 default:
                                     telemetry.addData("Not Found","going to 1");
-                                    DriveToOneFromLeftRed();
-
+                                    if (rescans >= maxrescans) {
+                                        DriveToOneFromLeftRed(rescans * rescaninches);
+                                    }else{
+                                    rescans++=;
+                                    myrobot.DriveByInchesTimeSetPower(rescaninches, 1);
                             }
                             telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
@@ -196,10 +203,13 @@ public class LeftRedAutonomous extends LinearOpMode {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
     }
 
-    private void DriveToOneFromLeftRed(){
+    private void DriveToOneFromLeftRed(int alreadymoved){
         telemetry.addData("Starting","DriveToOneFromLeftRed");
         telemetry.update();
-        myrobot.DriveByInchesTimeSetPower(140, 1);
+        int firstdistance = 140;
+        int d;
+        d = firstdistance - alreadymoved;
+        myrobot.DriveByInchesTimeSetPower(d, 1);
         myrobot.TurnByDegrees(-145);
         myrobot.DriveByInchesTimeSetPower(68, 1);
         myrobot.StopDrive();
@@ -210,6 +220,9 @@ public class LeftRedAutonomous extends LinearOpMode {
     private void DriveToTwoFromLeftRed(){
         telemetry.addData("Starting","DriveToTwoFromLeftRed");
         telemetry.update();
+            int firstdistance = 140;
+            int d;
+            d = firstdistance - alreadymoved;
 
         telemetry.addData("Finishing","DriveToTwoFromLeftRed");
         telemetry.update();
@@ -219,6 +232,9 @@ public class LeftRedAutonomous extends LinearOpMode {
     private void DriveToThreeFromLeftRed(){
         telemetry.addData("Starting","DriveToThreeFromLeftRed");
         telemetry.update();
+            int firstdistance = 140;
+            int d;
+            d = firstdistance - alreadymoved;
 
         telemetry.addData("Finishing","DriveToThreeFromLeftRed");
         telemetry.update();
