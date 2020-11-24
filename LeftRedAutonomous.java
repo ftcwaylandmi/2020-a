@@ -147,9 +147,10 @@ public class LeftRedAutonomous extends LinearOpMode {
                                     telemetry.addData("Not Found","going to 1");
                                     if (rescans >= maxrescans) {
                                         DriveToOneFromLeftRed(rescans * rescaninches);
-                                    }else{
-                                    rescans++=;
-                                    myrobot.DriveByInchesTimeSetPower(rescaninches, 1);
+                                    } else {
+                                        rescans++;
+                                        myrobot.DriveByInchesTimeSetPower(rescaninches, 1);
+                                    }
                             }
                             telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
@@ -217,7 +218,7 @@ public class LeftRedAutonomous extends LinearOpMode {
         telemetry.update();
     }
 
-    private void DriveToTwoFromLeftRed(){
+    private void DriveToTwoFromLeftRed(int alreadymoved){
         telemetry.addData("Starting","DriveToTwoFromLeftRed");
         telemetry.update();
             int firstdistance = 140;
@@ -229,7 +230,7 @@ public class LeftRedAutonomous extends LinearOpMode {
 
     }
 
-    private void DriveToThreeFromLeftRed(){
+    private void DriveToThreeFromLeftRed(int alreadymoved){
         telemetry.addData("Starting","DriveToThreeFromLeftRed");
         telemetry.update();
             int firstdistance = 140;
