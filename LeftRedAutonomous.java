@@ -94,7 +94,7 @@ public class LeftRedAutonomous extends LinearOpMode {
         initVuforia();
         initTfod();
         myrobot.initHW(hardwareMap);
-        DriveToOne();
+        //DriveToOne();
 
         int rescans = 0;
         int maxrescans = 3;
@@ -122,9 +122,19 @@ public class LeftRedAutonomous extends LinearOpMode {
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
         waitForStart();
+        telemetry.addData(">", "Starting");
+        boolean opmod = false;
+        opmod = opModeIsActive();
+        telemetry.addData("opmode", opmod);
+        telemetry.addData(">", "did I skip something?");
+        telemetry.addData("opmode", opmod);
+       // telemetry.update();
 
-        if (opModeIsActive()) {
-            while (opModeIsActive()) {
+        if (opmod) {
+            telemetry.addData(">", "OpModeIsActive");
+            telemetry.update();
+
+            while (opmod) {
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
@@ -139,29 +149,40 @@ public class LeftRedAutonomous extends LinearOpMode {
                             switch (recognition.getLabel()) {
                                 case "Single":
                                     telemetry.addData("Found", "Single going to 2");
+                                    telemetry.update();
                                     DriveToTwoFromLeftRed(rescans * rescaninches);
                                 case "Quad":
                                     telemetry.addData("Found", "Quad going to 3");
+                                    telemetry.update();
                                     DriveToThreeFromLeftRed(rescans * rescaninches);
                                 default:
-                                    telemetry.addData("Not Found","going to 1");
+                                    telemetry.addData("Not Found","Trying again");
+                                    telemetry.update();
                                     if (rescans >= maxrescans) {
                                         DriveToOneFromLeftRed(rescans * rescaninches);
                                     } else {
                                         rescans++;
+
+                                        telemetry.addData("Not Found","Trying again" + rescans);
+                                        telemetry.update();
                                         myrobot.DriveByInchesTimeSetPower(rescaninches, 1);
                                     }
                             }
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                            /*telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                    recognition.getRight(), recognition.getBottom());
+                                    recognition.getRight(), recognition.getBottom());*/
                         }
-                        telemetry.update();
+                        //telemetry.update();
                     }
                 }
+                opmod = opModeIsActive();
             }
+
         }
+
+        telemetry.addData(">", "did I skip everything?");
+        telemetry.update();
 
         if (tfod != null) {
             tfod.shutdown();
