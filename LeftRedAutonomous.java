@@ -99,6 +99,7 @@ public class LeftRedAutonomous extends LinearOpMode {
         int rescans = 0;
         int maxrescans = 6;
         int rescaninches = 0;
+        int lasersoundID = hardwareMap.appContext.getResources().getIdentifier("ss_laser", "raw", hardwareMap.appContext.getPackageName());
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -155,6 +156,7 @@ public class LeftRedAutonomous extends LinearOpMode {
                                 case "Quad":
                                     telemetry.addData("Found", "Quad going to 3");
                                     telemetry.update();
+                                  //
                                     DriveToThreeFromLeftRed(rescans * rescaninches);
                                     break;
                                 default:
