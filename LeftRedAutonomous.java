@@ -97,8 +97,8 @@ public class LeftRedAutonomous extends LinearOpMode {
         //DriveToOne();
 
         int rescans = 0;
-        int maxrescans = 3;
-        int rescaninches = 2;
+        int maxrescans = 6;
+        int rescaninches = 0;
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -151,10 +151,12 @@ public class LeftRedAutonomous extends LinearOpMode {
                                     telemetry.addData("Found", "Single going to 2");
                                     telemetry.update();
                                     DriveToTwoFromLeftRed(rescans * rescaninches);
+                                    break;
                                 case "Quad":
                                     telemetry.addData("Found", "Quad going to 3");
                                     telemetry.update();
                                     DriveToThreeFromLeftRed(rescans * rescaninches);
+                                    break;
                                 default:
                                     telemetry.addData("Not Found","Trying again");
                                     telemetry.update();
@@ -162,11 +164,13 @@ public class LeftRedAutonomous extends LinearOpMode {
                                         DriveToOneFromLeftRed(rescans * rescaninches);
                                     } else {
                                         rescans++;
+                                        sleep(800);
 
                                         telemetry.addData("Not Found","Trying again" + rescans);
                                         telemetry.update();
                                         myrobot.DriveByInchesTimeSetPower(rescaninches, 1);
                                     }
+                                    break;
                             }
                             /*telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
